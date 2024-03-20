@@ -1,15 +1,15 @@
 package pages.main;
 
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
-import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class Search {
 
-    public static SelenideElement menuButtonProduct = $x(".//button[contains(text(), 'Product')]");
-    public static SelenideElement menuEntrieActions = $x(".//div[@class][contains(text(), 'Actions')]");
-    public static ElementsCollection productMenuItems = $$x(".//a[contains(@class, 'HeaderMenu-dropdown-link')]");
+    public static SelenideElement fieldLogin = $x(".//input[@name='login']");
+    public static SelenideElement fieldPwd = $x(".//input[@name='password']");
+    public static SelenideElement buttonSignIn = $x(".//input[@name='commit']");
+    public static SelenideElement errorFrame = $x(".//div[@class='flash flash-full flash-error  ']");
+    public static SelenideElement buttonErrorFrameClose = $x(".//div[@class='flash flash-full flash-error  ']//button");
 
 }
