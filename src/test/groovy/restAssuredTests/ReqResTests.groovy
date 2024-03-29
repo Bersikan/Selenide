@@ -1,17 +1,18 @@
 package restAssuredTests
 
 
+import org.testng.annotations.BeforeSuite
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import restAssuredConfigGroovy.BaseRestAssuredConfig
-import verifyHelper.Verifier
+import helpers.reqres.BaseRestAssuredConfig
 
 import java.time.Instant
 
+import static data.RandomDataHelper.randomAlpha
+import static io.restassured.RestAssured.baseURI
 import static verifyHelper.Verifier.getSortedListOfMapsByTextEntity
 
-class ExampleTests extends BaseRestAssuredConfig {
-
+class ReqResTests extends BaseRestAssuredConfig {
 
     @Test(dataProvider = "pages")
     void "get users by page"(int page, def range) {
@@ -68,8 +69,22 @@ class ExampleTests extends BaseRestAssuredConfig {
     void "verify users sorted by id ascending"() {
         List<Map> data = UsersHelper().getListUsers().bodyAsMap.data
         List<Map> expectedData = getSortedListOfMapsByTextEntity(new ArrayList<>(data), "id", "asc")
-
         assert data == expectedData
+    }
 
+    @Test
+    void "verify cant log in with non-existent user"() {
+        Map response = UsersHelper().loginUser(randomAlpha(10), randomAlpha(8)).bodyAsMap
+        assert response.error == "user not found"
+    }
+
+    @Test
+    void "verify user can be successfully registered and logined"() {
+        Map responseRegistration = UsersHelper().registerUser(UsersHelper().TEST_USER_LOGIN, UsersHelper().TEST_USER_PASSWORD).bodyAsMap
+        Map responseLogin = UsersHelper().loginUser(UsersHelper().TEST_USER_LOGIN, UsersHelper().TEST_USER_PASSWORD).bodyAsMap
+
+        assert responseRegistration.id != null
+        assert responseRegistration.token != null
+        assert responseLogin.token == responseRegistration.token
     }
 }
