@@ -5,6 +5,7 @@ pipeline {
         stage('Test') {
             steps {
                 bat "gradle clean test"
+                bat "git submodule update --init --recursive"
             }
 
             post {
