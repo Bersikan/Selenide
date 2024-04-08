@@ -1,15 +1,12 @@
 package restAssuredTests
 
-
-import org.testng.annotations.BeforeSuite
+import helpers.reqres.BaseRestAssuredConfig
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import helpers.reqres.BaseRestAssuredConfig
 
 import java.time.Instant
 
 import static data.RandomDataHelper.randomAlpha
-import static io.restassured.RestAssured.baseURI
 import static verifyHelper.Verifier.getSortedListOfMapsByTextEntity
 
 class ReqResTests extends BaseRestAssuredConfig {
@@ -55,7 +52,7 @@ class ReqResTests extends BaseRestAssuredConfig {
 
         expectedHeaders.forEach {
             Map expectedHeader ->
-                assert headers.find {  Object header -> header.name == expectedHeader.name }.value == expectedHeader.value
+                assert headers.find { Object header -> header.name == expectedHeader.name }.value == expectedHeader.value
         }
 
     }
