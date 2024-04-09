@@ -32,8 +32,8 @@ pipeline {
               	   reportBuildPolicy: 'ALWAYS',
               	   results: [[path: 'report']]
             	   ])
-          	        }
-                 }
-             }
+          	    }
+        }
+
     }
 }
