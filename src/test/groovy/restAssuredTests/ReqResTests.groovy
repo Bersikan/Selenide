@@ -1,6 +1,8 @@
 package restAssuredTests
 
+import groovy.json.JsonBuilder
 import helpers.reqres.BaseRestAssuredConfig
+import io.restassured.module.jsv.JsonSchemaValidator
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 
@@ -31,6 +33,23 @@ class ReqResTests extends BaseRestAssuredConfig {
     void "get single users by id"() {
         Map user1 = UsersHelper().getSingleUser("1").bodyAsMap.data
         assert user1.first_name == "George"
+    }
+
+    @Test
+    void "user json schema validation"() {
+        UsersHelper().getSingleUser("1").
+                response
+                .then()
+                .assertThat()
+                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("ReqResUserSchema.json"))
+    }
+
+    @Test
+    void "get users by page schema validation"() {
+       UsersHelper().getListUsers([page: 1]).response
+               .then()
+               .assertThat()
+               .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("ReqResUsersSchema.json"))
     }
 
 

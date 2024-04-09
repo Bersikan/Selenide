@@ -15,7 +15,9 @@ class Auth extends CommonBaseSpecification {
         ]
 
         Map response = bookHelper().assignBook(userToken(), payload).bodyAsMap
+        Map response2 = bookHelper().assignBook(userToken(), payload).bodyAsMap
         assert response
     }
+
 
 }
