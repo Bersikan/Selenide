@@ -21,7 +21,7 @@ public class TestExample extends BaseConfig {
     @Test(description = "should return a proper error on incorrect login data")
     public void incorrectLogIn() {
         logIn(randomAlpha(10), randomAlpha(10));
-        errorFrame.shouldHave(text(INCORRECT_LOGIN_MESSAGE));
+        errorFrame.shouldHave(text("asdasd"));
         buttonErrorFrameClose.click();
         errorFrame.shouldNotBe(visible);
     }
