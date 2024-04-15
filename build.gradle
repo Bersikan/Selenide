@@ -28,10 +28,19 @@ dependencies {
 
 }
 
-
+def suite1 = project.hasProperty("suite1")
+def suite2 = project.hasProperty("suite2")
 test {
     useTestNG(){
-//        includeGroups("Smoke")
+        useDefaultListeners = true
+
+        if(suite1) {
+            suites "src/test/resources/testng.xml"
+        }
+
+        if(suite2) {
+            suites "src/test/resources/testng2.xml"
+        }
     }
 
 }

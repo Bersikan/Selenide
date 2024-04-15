@@ -1,14 +1,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="selenide tests">
+<suite name="selenide tests" parallel="true" verbose="2" thread-count="2">
     <groups>
         <run>
-<!--            <include name="Smoke"/>-->
+            <include name="Smoke"/>
         </run>
     </groups>
     <listeners>
         <listener class-name="testNG.Transform"/>
     </listeners>
-    <test name="Selenium tests" parallel="methods" thread-count="2">
+    <test name="Selenium tests">
         <packages>
             <package name="selenideTests.*"/>
         </packages>
