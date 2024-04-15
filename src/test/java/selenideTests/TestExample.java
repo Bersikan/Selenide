@@ -1,5 +1,6 @@
 package selenideTests;
 
+import com.codeborne.selenide.Configuration;
 import general_helpers.element.Element;
 import general_helpers.element.ElementBuilder;
 import org.openqa.selenium.By;
@@ -26,7 +27,7 @@ public class TestExample extends BaseConfig {
     @Test()
     @SmokeTest
     public void incorrectLogIn() {
-        String browser = System.getenv("browser");
+        assert Configuration.browser.equals("firefox") : "asdasdasd";
         logIn(randomAlpha(10), randomAlpha(10));
         errorFrame.shouldHave(text(INCORRECT_LOGIN_MESSAGE));
         buttonErrorFrameClose.click();
