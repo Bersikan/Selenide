@@ -27,7 +27,6 @@ public class TestExample extends BaseConfig {
     @Test()
     @SmokeTest
     public void incorrectLogIn() {
-        assert Configuration.browser.equals("firefox") : "asdasdasd";
         logIn(randomAlpha(10), randomAlpha(10));
         errorFrame.shouldHave(text(INCORRECT_LOGIN_MESSAGE));
         buttonErrorFrameClose.click();
