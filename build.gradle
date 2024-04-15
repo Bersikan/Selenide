@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.testng:testng:7.9.0'
+    testImplementation 'org.testng:testng:7.10.1'
     testImplementation 'com.codeborne:selenide:7.2.1'
     testImplementation project(":commons")
     testImplementation 'io.rest-assured:rest-assured:5.4.0'
@@ -30,5 +30,8 @@ dependencies {
 
 
 test {
-    useTestNG()
+    useTestNG(){
+//        includeGroups("Smoke")
+    }
+
 }

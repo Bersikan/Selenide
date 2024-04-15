@@ -1,17 +1,18 @@
-package restAssuredTests
+package restAssuredTests.reqres
 
-import groovy.json.JsonBuilder
-import helpers.reqres.BaseRestAssuredConfig
+
+import testNG.group_annotations.SmokeTest
+import services.reqres.CommonBaseSpecification
 import io.restassured.module.jsv.JsonSchemaValidator
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 
 import java.time.Instant
 
-import static data.RandomDataHelper.randomAlpha
-import static verifyHelper.Verifier.getSortedListOfMapsByTextEntity
+import static general_helpers.StringHelper.randomAlpha
+import static general_helpers.ListHelper.getSortedListOfMapsByTextEntity
 
-class ReqResTests extends BaseRestAssuredConfig {
+class ReqResTests extends CommonBaseSpecification {
 
     @Test(dataProvider = "pages")
     void "get users by page"(int page, def range) {
@@ -29,7 +30,8 @@ class ReqResTests extends BaseRestAssuredConfig {
         }
     }
 
-    @Test
+    @Test()
+    @SmokeTest
     void "get single users by id"() {
         Map user1 = UsersHelper().getSingleUser("1").bodyAsMap.data
         assert user1.first_name == "George"
