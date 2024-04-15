@@ -10,6 +10,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import selenideConfig.BaseConfig;
 
+import java.util.Objects;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -29,9 +31,9 @@ public class TestExample extends BaseConfig {
     @SmokeTest
     public void incorrectLogIn() {
         String browser = System.getenv("browser");
-        if(browser == "chrome")
+        if(!Objects.equals(browser, "chrome"))
         {
-            Assert.fail();
+            Assert.fail("asdasdasd");
         }
         logIn(randomAlpha(10), randomAlpha(10));
         errorFrame.shouldHave(text(INCORRECT_LOGIN_MESSAGE));
