@@ -11,8 +11,8 @@ public class gitHubLogin {
     public static SelenideElement fieldLogin = $("#login_field");
     public static SelenideElement fieldPwd = $("#password");
     public static SelenideElement buttonSignIn = $(By.name("commit"));
-    public static SelenideElement errorFrame = $("[class= 'flash flash-full flash-error  ']");
-    public static SelenideElement buttonErrorFrameClose = $("[class='flash flash-full flash-error  ']");
+    public static SelenideElement errorFrame = $(".flash.flash-full.flash-error");
+    public static SelenideElement buttonErrorFrameClose = errorFrame.$(".flash-close");
 
     public static void logIn (String login, String password){
         fieldLogin.val(login);

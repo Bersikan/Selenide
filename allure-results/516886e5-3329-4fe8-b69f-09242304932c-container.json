@@ -1,1 +1,0 @@
-{"uuid":"516886e5-3329-4fe8-b69f-09242304932c","name":"restAssuredTests.ReqResTests","children":["c5662be2-7e3c-4fe5-a3cc-0e02c44baa47"],"befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1712758864395,"stop":1712758864623}],"afters":[],"start":1712758864393,"stop":1712758865934}

@@ -11,6 +11,11 @@ repositories {
     mavenCentral()
 }
 
+allure {
+    version = '2.11.2'
+    reporting {}
+}
+
 dependencies {
     testImplementation 'org.testng:testng:7.10.1'
     testImplementation 'com.codeborne:selenide:7.2.1'
@@ -32,8 +37,6 @@ def suite1 = project.hasProperty("suite1")
 def suite2 = project.hasProperty("suite2")
 test {
     useTestNG(){
-        useDefaultListeners = true
-
         if(suite1) {
             suites "src/test/resources/testng.xml"
         }
