@@ -19,6 +19,7 @@ class Authorization extends CommonBaseSpecification {
                                 "message": "User Id not correct!"]
 
         RaResponse response = bookHelper().assignBook(userToken(), payload)
+        response.response.getCookies();
         assert response.status == 401
         assert response.bodyAsMap == expectedResponse
     }

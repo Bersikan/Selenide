@@ -23,8 +23,9 @@ dependencies {
     testImplementation 'io.qameta.allure:allure-rest-assured:2.26.0'
     testImplementation 'io.qameta.allure:allure-selenide:2.26.0'
     testImplementation 'io.qameta.allure:allure-java-commons:2.26.0'
-    testImplementation 'io.qameta.allure:allure-testng:2.26.0'
+    testImplementation 'io.qameta.allure:allure-testng:2.27.0'
     implementation 'io.rest-assured:json-schema-validator:5.4.0'
+
 
 }
 

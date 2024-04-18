@@ -4,7 +4,6 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
 
 public class gitHubLogin {
 
@@ -14,7 +13,7 @@ public class gitHubLogin {
     public static SelenideElement errorFrame = $(".flash.flash-full.flash-error");
     public static SelenideElement buttonErrorFrameClose = errorFrame.$(".flash-close");
 
-    public static void logIn (String login, String password){
+    public static void logIn(String login, String password) {
         fieldLogin.val(login);
         fieldPwd.val(password);
         buttonSignIn.click();
