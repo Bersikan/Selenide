@@ -1,1 +1,0 @@
-{"uuid":"ddfc989a-3805-483c-8a1a-5c9f2a46c15e","name":"restAssuredTests.bookstore.Authorization","children":["5d42df18-60f7-4ad1-8627-210e208f9ee7"],"befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1718376242275,"stop":1718376242525}],"afters":[],"start":1718376242229,"stop":1718376243053}
