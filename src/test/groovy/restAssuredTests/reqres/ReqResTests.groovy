@@ -1,6 +1,7 @@
 package restAssuredTests.reqres
 
 import general_helpers.StringHelper
+import response_parser.RaResponse
 import testNG.group_annotations.SmokeTest
 import services.reqres.CommonBaseSpecification
 import io.restassured.module.jsv.JsonSchemaValidator
@@ -40,19 +41,16 @@ class ReqResTests extends CommonBaseSpecification {
 
     @Test
     void "user json schema validation"() {
-        UsersHelper().getSingleUser("1").
-                response
-                .then()
-                .assertThat()
-                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("ReqResUserSchema.json"))
+        JsonSchemaValidator validator = JsonSchemaValidator.matchesJsonSchemaInClasspath("ReqResUserSchema.json")
+        RaResponse response = UsersHelper().getSingleUser("1")
+        response.validateJsonSchema(validator)
     }
 
     @Test
     void "get users by page schema validation"() {
-       UsersHelper().getListUsers([page: 1]).response
-               .then()
-               .assertThat()
-               .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("ReqResUsersSchema.json"))
+        JsonSchemaValidator validator = JsonSchemaValidator.matchesJsonSchemaInClasspath("ReqResUsersSchema.json")
+        RaResponse response = UsersHelper().getListUsers([page: 1])
+        response.validateJsonSchema(validator)
     }
 
 
@@ -109,7 +107,7 @@ class ReqResTests extends CommonBaseSpecification {
     }
 
     @Test
-     void "regex"(){
+    void "regex"() {
         String reg = "([a-f\\d]{8})-([a-f\\d]{4}-){3}([a-f\\d]{12})"
         assert StringHelper.randomUUID().matches(reg)
     }
