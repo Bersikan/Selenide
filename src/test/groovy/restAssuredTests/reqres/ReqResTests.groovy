@@ -34,7 +34,6 @@ class ReqResTests extends CommonBaseSpecification {
     }
 
     @Test()
-    @SmokeTest
     void "get single users by id"() {
         Map user1 = ReqRes.getSingleUser("1").bodyAsMap.data
         assert user1.first_name == "George"

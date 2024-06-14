@@ -33,10 +33,10 @@ dependencies {
 }
 
 def suite = project.properties.getOrDefault("suite", "testng.xml")
-int threads = project.properties.getOrDefault("threads", 1)
+def threads = project.properties.getOrDefault("threads", 1)
 
 String suitePath = "src/test/resources/"
-String[] suiteList = "${suite}".split(",").collect{suitePath+it+".xml"}.toArray()
+String[] suiteList = "${suite}".split(",").collect { suitePath + it + ".xml" }.toArray()
 
 test {
     useTestNG() {
@@ -44,11 +44,12 @@ test {
 }
 
 tasks.register('testExec', Test) {
+    forkEvery 0
     useTestNG() {
         suites suiteList
         setParallel("methods")
         if (project.hasProperty("threads")) {
-            setThreadCount(threads)
+            setThreadCount(Integer.parseInt(threads))
         }
     }
 
