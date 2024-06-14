@@ -20,7 +20,7 @@ import static pages.main.gitHubLogin.*;
 
 public class TestExample extends BaseConfig {
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void gitHubSpecification() {
         open("https://www.github.com/login");
     }

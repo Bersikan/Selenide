@@ -25,28 +25,35 @@ dependencies {
     testImplementation 'io.qameta.allure:allure-java-commons:2.26.0'
     testImplementation 'io.qameta.allure:allure-testng:2.27.0'
     implementation 'io.rest-assured:json-schema-validator:5.4.0'
-    // https://mvnrepository.com/artifact/org.spockframework/spock-core
     testImplementation 'org.spockframework:spock-core:2.4-M4-groovy-4.0'
-// https://mvnrepository.com/artifact/org.gebish/geb-spock
     implementation 'org.gebish:geb-spock:7.0'
-
     implementation 'org.gebish:geb-core:7.0'
-
 
 
 }
 
-def suite1 = project.hasProperty("suite1")
-def suite2 = project.hasProperty("suite2")
-test {
-    useTestNG(){
-        if(suite1) {
-            suites "src/test/resources/testng.xml"
-        }
+def suite = project.properties.getOrDefault("suite", "testng.xml")
+int threads = project.properties.getOrDefault("threads", 1)
 
-        if(suite2) {
-            suites "src/test/resources/testng2.xml"
+String suitePath = "src/test/resources/"
+String[] suiteList = "${suite}".split(",").collect{suitePath+it+".xml"}.toArray()
+
+test {
+    useTestNG() {
+    }
+}
+
+tasks.register('testExec', Test) {
+    useTestNG() {
+        suites suiteList
+        setParallel("methods")
+        if (project.hasProperty("threads")) {
+            setThreadCount(threads)
         }
     }
 
+    testLogging.showStandardStreams = true
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+    }
 }

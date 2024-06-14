@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="reqres tests">
+    <test name="reqres tests">
+        <packages>
+            <package name="restAssuredTests.reqres.*"/>
+        </packages>
+    </test>
+</suite>
