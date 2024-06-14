@@ -9,7 +9,7 @@ public class gitHubLogin {
 
     public static SelenideElement fieldLogin = $("#login_field");
     public static SelenideElement fieldPwd = $("#password");
-    public static SelenideElement buttonSignIn = $(By.name("commit"));
+    public static SelenideElement buttonSignIn = $("div.position-relative input[name='commit']");
     public static SelenideElement errorFrame = $(".flash.flash-full.flash-error");
     public static SelenideElement buttonErrorFrameClose = errorFrame.$(".flash-close");
 

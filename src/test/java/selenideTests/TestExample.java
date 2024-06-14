@@ -1,60 +1,63 @@
 package selenideTests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import general_helpers.element.Element;
 import general_helpers.element.ElementBuilder;
 import org.openqa.selenium.By;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import selenideConfig.BaseConfig;
 import testNG.group_annotations.IntegrationTest;
 import testNG.group_annotations.SmokeTest;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.*;
 import static general_helpers.StringHelper.randomAlpha;
-import static git_hub_selenide.data.ErrorMessages.INCORRECT_LOGIN_MESSAGE;
 import static pages.main.gitHubLogin.*;
 
 public class TestExample extends BaseConfig {
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeClass(alwaysRun = true)
     public void gitHubSpecification() {
-        open("https://github.com/login");
+        open("https://www.github.com/login");
     }
 
-    @Test()
+    @Test(dataProvider = "emptyFields")
     @SmokeTest
-    public void incorrectLogIn() {
-        logIn(randomAlpha(10), randomAlpha(10));
-        errorFrame.shouldHave(text(INCORRECT_LOGIN_MESSAGE));
-        buttonErrorFrameClose.click();
-        errorFrame.shouldNotBe(visible);
+    public void loginWithEmptyFields(String login, String pwd) {
+        logIn(login, pwd);
+        buttonSignIn.shouldBe(visible);
+        buttonSignIn.shouldBe(enabled);
     }
 
-    @Test
-    @IntegrationTest
-    public void incorrectLogIn2() {
-        logIn(randomAlpha(10), randomAlpha(10));
-        errorFrame.shouldHave(text(INCORRECT_LOGIN_MESSAGE));
-        buttonErrorFrameClose.click();
-        errorFrame.shouldNotBe(visible);
+    @DataProvider(name = "emptyFields")
+    public Object[][] emptyFields() {
+        return new Object[][]{
+                {"", randomAlpha(10)},
+                {randomAlpha(10), ""},
+                {"", ""}
+        };
     }
 
-    @Test
-    @IntegrationTest
-    public void builderPattern() {
-        By section = By.cssSelector("main");
-        By sebSection = By.cssSelector(".auth-form");
-        By element = By.cssSelector("#login_field");
+    @Test(dataProvider = "incorrectFields")
+    @SmokeTest
+    public void loginWithIncorrectData(String login, String pwd) {
+        logIn(login, pwd);
+        buttonSignIn.shouldBe(visible);
+        buttonSignIn.shouldBe(enabled);
+        errorFrame.shouldBe(visible);
+        buttonErrorFrameClose.click();
+    }
 
-        ElementBuilder elb = new ElementBuilder();
-        Element sect = elb.setSection(section)
-                .setSubSection(sebSection)
-                .setElement(element).build();
-        sect.init().val("Some login");
-
-
+    @DataProvider(name = "incorrectFields")
+    public Object[][] incorrectFields() {
+        return new Object[][]{
+                {"CorrectLogin", randomAlpha(10)},
+                {randomAlpha(10), randomAlpha(10)},
+                {randomAlpha(10), "CorrectPwd"}
+        };
     }
 }

@@ -25,6 +25,13 @@ dependencies {
     testImplementation 'io.qameta.allure:allure-java-commons:2.26.0'
     testImplementation 'io.qameta.allure:allure-testng:2.27.0'
     implementation 'io.rest-assured:json-schema-validator:5.4.0'
+    // https://mvnrepository.com/artifact/org.spockframework/spock-core
+    testImplementation 'org.spockframework:spock-core:2.4-M4-groovy-4.0'
+// https://mvnrepository.com/artifact/org.gebish/geb-spock
+    implementation 'org.gebish:geb-spock:7.0'
+
+    implementation 'org.gebish:geb-core:7.0'
+
 
 
 }

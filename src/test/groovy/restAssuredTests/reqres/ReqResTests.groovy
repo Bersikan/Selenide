@@ -1,6 +1,6 @@
 package restAssuredTests.reqres
 
-
+import general_helpers.StringHelper
 import testNG.group_annotations.SmokeTest
 import services.reqres.CommonBaseSpecification
 import io.restassured.module.jsv.JsonSchemaValidator
@@ -10,7 +10,8 @@ import org.testng.annotations.Test
 import java.time.Instant
 
 import static general_helpers.StringHelper.randomAlpha
-import static general_helpers.ListHelper.getSortedListOfMapsByTextEntity
+import static general_helpers.ListHelper.getSortedListOfMaps
+import static general_helpers.ListHelper.sortOrder.ASC
 
 class ReqResTests extends CommonBaseSpecification {
 
@@ -86,7 +87,7 @@ class ReqResTests extends CommonBaseSpecification {
     @Test
     void "verify users sorted by id ascending"() {
         List<Map> data = UsersHelper().getListUsers().bodyAsMap.data
-        List<Map> expectedData = getSortedListOfMapsByTextEntity(new ArrayList<>(data), "id", "asc")
+        List<Map> expectedData = getSortedListOfMaps(new ArrayList<>(data), "id", ASC)
         assert data == expectedData
     }
 
@@ -99,10 +100,17 @@ class ReqResTests extends CommonBaseSpecification {
     @Test
     void "verify user can be successfully registered and logined"() {
         Map responseRegistration = UsersHelper().registerUser(UsersHelper().TEST_USER_LOGIN, UsersHelper().TEST_USER_PASSWORD).bodyAsMap
-        Map responseLogin = UsersHelper().loginUser(UsersHelper().TEST_USER_LOGIN, UsersHelper().TEST_USER_PASSWORD).bodyAsMap
+        def responseLogin = UsersHelper().loginUser(UsersHelper().TEST_USER_LOGIN, UsersHelper().TEST_USER_PASSWORD)
 
         assert responseRegistration.id != null
         assert responseRegistration.token != null
-        assert responseLogin.token == responseRegistration.token
+        assert responseLogin.response.getStatusCode() == 200
+        assert responseLogin.bodyAsMap.token == responseRegistration.token
+    }
+
+    @Test
+     void "regex"(){
+        String reg = "([a-f\\d]{8})-([a-f\\d]{4}-){3}([a-f\\d]{12})"
+        assert StringHelper.randomUUID().matches(reg)
     }
 }
