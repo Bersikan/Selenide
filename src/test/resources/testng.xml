@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="swapi tests">
+    <test name="swapi tests">
+        <packages>
+            <package name="restAssuredTests.reqres.*"/>
+            <package name="restAssuredTests.swapi.*"/>
+        </packages>
+    </test>
+</suite>
